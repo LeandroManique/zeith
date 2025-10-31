@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0A0A0A; /* ZEITH technical black */
+  --text: #F2F2F2;
+  --transition: 150ms;
+  --font-sans: "Neue Haas Grotesk", "Inter", "Inter Display", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+html, body, #__next {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: all var(--transition) ease-in-out;
+}
+
+/* Ensure the main container can fill the viewport */
+main {
+  min-height: 100vh;
+}
+
+/* Mobile-first helpers and safe-area handling */
+* { -webkit-tap-highlight-color: transparent; transition: all .25s ease; }
+:root { color-scheme: dark; }
+body { background: #18130E; }
+
+@supports (height: 100svh) {
+  .h-screen-mobile { height: 100svh; } /* avoids iOS 100vh bug */
+}
+@supports not (height: 100svh) {
+  .h-screen-mobile { height: 100vh; }
+}
+
+/* Safe area helpers (iOS) */
+.safe-pad {
+  padding-top: max(12px, env(safe-area-inset-top));
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+}
+.safe-pad-x {
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+}
+
+/* Inputs >=16px to avoid zoom on iOS */
+input, textarea, select, button { font-size: 16px; }
+
+/* prefers-reduced-motion support */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+
+/* Utility: content visibility for long lists */
+.content-auto { content-visibility: auto; }

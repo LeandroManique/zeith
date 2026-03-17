@@ -1,5 +1,7 @@
 import { appendLeadToSheet } from '@/lib/google/sheets'
 
+export const dynamic = 'force-dynamic'
+
 export async function POST(req: Request) {
   try {
     const body = await req.json()

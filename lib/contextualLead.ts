@@ -1,13 +1,8 @@
 import OpenAI from 'openai'
 
-// Lazy instantiation — avoids build-time crash when OPENAI_API_KEY is absent
-let _openai: OpenAI | null = null
-function getOpenAI() {
-  if (!_openai) {
-    _openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
-  }
-  return _openai
-}
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+})
 
 export async function analyzeContext(context: string) {
   const prompt = `
@@ -48,7 +43,7 @@ ${context}
 
   try {
     // Some SDK versions expose chat differently; cast to any to call chat completions
-    const completion = await (getOpenAI() as any).chat.completions.create({
+    const completion = await (openai as any).chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [{ role: 'user', content: prompt }],
       temperature: 0.4,
